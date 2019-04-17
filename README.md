@@ -1,8 +1,7 @@
 # POE
 A Whist engine in MATLAB
 
-% This is a Whist engine which can support anywhere from 0 to 4 computer
-% players. 
+% This is a Whist engine which can support anywhere from 0 to 4 computer players. 
 
 %%%%%%%%%%%%%%%%
 
