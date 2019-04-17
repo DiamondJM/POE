@@ -28,16 +28,11 @@ A Whist engine in MATLAB
 
 %%%%%%%%%%%%%%%%
 
-% Use the compPlayers field to determine the number and order of
-% computer players. 
+% Use the compPlayers field to determine the number and order of computer players. 
 % You will be prompted to choose whether or not to randomize the hands. 
-% Randomizing the hands is good for playing test matches, usually with four
-% computer players. 
-% If you're using a real deck, dealt to the players, do not randomize the
-% hand. 
-% If you are not randomizing the hand, recall that the player in order 4
-% must have 12 cards. That is, the card which is pulled is pulled from that
-% player's hand. So, only 12 card will be accepted. 
+% Randomizing the hands is good for playing test matches, usually with four computer players. 
+% If you're using a real deck, dealt to the players, do not randomize the hand. 
+% If you are not randomizing the hand, recall that the player in order 4 must have 12 cards. That is, the card which is pulled is pulled from that player's hand. So, only 12 card will be accepted. 
 % You'll also be prompted to provide the pulled card. 
 
 % If prompted, provide all cards in the format 'n s', or number suit. 
