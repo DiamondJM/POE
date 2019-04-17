@@ -5,7 +5,9 @@ A Whist engine in MATLAB
 % players. 
 
 %%%%%%%%%%%%%%%%
+
 % Algorithm
+
 %%%%%%%%%%%%%%%%
 
 % I use a tree structure, in which the ambient extant deck and trick are passed to a recursive routine. 
@@ -22,7 +24,9 @@ A Whist engine in MATLAB
 % In each round of Monte Carlo simulation, the winning status of each legal move is assessed. After each round, I reward each winning move with one point. Further, the winning move which is also the lowest (accounting for trump status and game rules) is awarded a second point. Thus, we don't solely give priority to easy wins (like the ace of trumps). After all rounds of Monte Carlo simulation are complete, I choose the card which received the most points.
 
 %%%%%%%%%%%%%%%%
+
 % Instructions: 
+
 %%%%%%%%%%%%%%%%
 
 % Use the compPlayers field to determine the number and order of
@@ -34,7 +38,8 @@ A Whist engine in MATLAB
 % hand. 
 % If you are not randomizing the hand, recall that the player in order 4
 % must have 12 cards. That is, the card which is pulled is pulled from that
-% player's hand. You'll be prompted to provide the pulled card. 
+% player's hand. So, only 12 card will be accepted. 
+% You'll also be prompted to provide the pulled card. 
 
 % If prompted, provide all cards in the format 'n s', or number suit. 
 % So, a 3 of spades is '3 s'. An ace of diamonds is 'a d'. 
