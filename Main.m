@@ -191,9 +191,10 @@ while sum(logical(deck(:,1))) >= 4
     % Reorder players
     %%%%%
     hands = deckToHands(deck); 
+    hands = hands([2:end 1]);
+    
     deck = cat(1,hands{:});
     
-    hands = hands([2:end 1]);
     playerNames = playerNames([2:end 1]);
     playersToTable = playersToTable([2:end 1]);
     playerRanOut = playerRanOut([2:end 1],:);
