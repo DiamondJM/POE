@@ -32,7 +32,8 @@ clearvars
 
 deckFull = zeros(52,2);
 
-playerNames = {'1','2','3','4'};
+playerNames = {'Orange','Blue','Red','Green'};
+
 % compPlayers = [false true true true]; 
 compPlayers = true(1,4);
 randomize = input('Randomize computer hands? ');
