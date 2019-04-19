@@ -33,3 +33,8 @@ You'll also be prompted to provide the pulled card.
 
 If prompted, provide all cards in the format 'n s', or number suit. 
 So, a 3 of spades is '3 s'. An ace of diamonds is 'a d'.
+
+# PoeSP 
+PoeSP is a single-player cousin to Poe. It supports only a single human player, playing against three automated opponents, all with randomized hands. PoeSP features a visual interface, such that the human player may see real-time readouts of the hand and trick, and choose from the cards displayed on-screen.
+
+PoeSP is available as a branch of POE. 
