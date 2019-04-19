@@ -5,9 +5,9 @@
 % players. 
 
 
-% Below, use the compPlayers field to determine the number and order of
-% computer players. 
-% You will be prompted to choose whether or not to randomize the hands. 
+% Everything is automated, so just press play. 
+% You'll be prompted to enter player names and computer status. 
+% You will also be prompted to choose whether or not to randomize the hands. 
 % Randomizing the hands is good for playing test matches, usually with four
 % computer players. 
 % If you're using a real deck, dealt to the players, do not randomize the
@@ -24,17 +24,18 @@ type POE.txt
 fprintf('a fully functional Whist engine. \n');
 type whistText.txt;
 
-
-
 %% Set up the game 
 
 clearvars
 
 deckFull = zeros(52,2);
 
-playerNames = {'Orange','Blue','Red','Green'};
-
-% compPlayers = [false true true true]; 
+playerNames = cell(1,4); 
+compPlayers = false(1,4);
+for ii = 1:4
+    playerNames{ii} = input(sprintf('Please input player %d name: ',ii),'s');
+    compPlayers(ii) = retrievePlayerIdentity(playerNames{ii});
+end
 compPlayers = true(1,4);
 randomize = input('Randomize computer hands? ');
 
@@ -109,6 +110,8 @@ startIndex = 0;
 % Columns cards
 % Rows players
 
+masterResults = zeros(3,0); 
+
 while sum(logical(deck(:,1))) >= 4
     trick = zeros(4,2);
     
@@ -142,6 +145,7 @@ while sum(logical(deck(:,1))) >= 4
             
             for ii = 1:numMTC
                 handsShuf = shuffleOtherPlayers(hands,jj,playerRanOut);
+                
                 deckShuf = cat(1,handsShuf{:});
                 myStruct.deck = deckShuf;
                                 
@@ -156,7 +160,8 @@ while sum(logical(deck(:,1))) >= 4
             resultsMTC = round(resultsMTC / sum(resultsMTC) * 100);
             
             [rVals,inds] = sort(resultsMTC,'descend'); 
-            for ii = 1:min(5,length(inds))
+            % for ii = 1:min(5,length(inds))
+            for ii = 1:length(inds)
                 fprintf('Choice %d: play %s with %d percent of results. \n',ii,outputCard(legalMoves(inds(ii),:)),rVals(ii));
             end
             
@@ -180,8 +185,8 @@ while sum(logical(deck(:,1))) >= 4
     %%%%%
     
     [~,winnerInd] = max(trickWeighted); 
-    if winnerInd == 1 || winnerInd == 3; fprintf('Team %s and %s wins! \n',playerNames{1},playerNames{3});
-    else; fprintf('Team %s and %s wins! \n',playerNames{2},playerNames{4});
+    if winnerInd == 1 || winnerInd == 3; fprintf('Team %s and %s win the trick! \n',playerNames{1},playerNames{3});
+    else; fprintf('Players %s and %s win the trick! \n',playerNames{2},playerNames{4});
     end
     
     gameResults{1,playersToTable(winnerInd)} = gameResults{1,playersToTable(winnerInd)} + 1;
@@ -208,6 +213,6 @@ if gameResults{1,1} == gameResults{1,2}; fprintf('It''s a tie! \n');
 else
     [~,ind] = max(gameResults{1,:});
     winningPlayers = find(playersToTable == ind);
-    fprintf('Players %s and %s win! \n',playerNames{winningPlayers(1)},playerNames{winningPlayers(2)});
+    fprintf('Players %s and %s win the game! \n',playerNames{winningPlayers(1)},playerNames{winningPlayers(2)});
 end
 

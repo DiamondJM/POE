@@ -26,37 +26,62 @@ for ii = find(1:4 ~= jj)
         availableCards = deckRemaining(availableCards,:);
     end
     
-    
-    while cardCounts(ii) > size(availableCards,1)
-        % Other players have exhausted the available cards, while this
-        % player has a restriction they dont. 
-        % Let's grab one of theirs. 
+    while cardCounts(ii) > size(availableCards,1) 
+        % We've ran into a 'pickle', of sorts, in which we've arrived at a
+        % sub-maximal cardinality matching on the bipartite
+        % graph between people and cards. 
         
-        nonNeededCards = find(ismember(deckRemaining(:,2),restrictedSuit));
-        nonNeededCards = nonNeededCards(randi([1 length(nonNeededCards)]));
-        nonNeededCard = deckRemaining(nonNeededCards,:);
+        % What we can do is dump 
         
-        exchangePlayer = find(~playerRanOut(:,nonNeededCard(2)) & (1:4 ~= jj)' & (1:4 < ii)');
-        exchangePlayer = exchangePlayer(randi([1 length(exchangePlayer)]));
-        % This player can take our card. 
+        exchangePlayer = find((1:4 ~= jj)' & (1:4 < ii)');
+        exchangePlayer = exchangePlayer(randi([1 length(exchangePlayer)])); 
+        exchangeHand = hands{exchangePlayer};
         
-        % Can we take its card? 
-    
-        neededCards = hands{exchangePlayer};
-        neededCards = find(~ismember(neededCards(:,2),restrictedSuit) & neededCards(:,1) ~= 0);
-        if isempty(neededCards); continue; end
-        % So now we have a card from that player that we can take. 
+        unwantedCardInd = find(ismember(deckRemaining(:,2),restrictedSuit));
+        unwantedCardInd = unwantedCardInd(randi([1 length(unwantedCardInd)])); 
+        unwantedCard = deckRemaining(unwantedCardInd,:);
         
-        neededCards = neededCards(randi([1 length(neededCards)]));
-        neededCard = hands{exchangePlayer}(neededCards,:);
+        % Can the other player take it? 
+        theirRestriction = find(playerRanOut(exchangePlayer,:));
+        if ~isempty(theirRestriction) && ismember(unwantedCard(2),theirRestriction); continue; end
+        % Yes. 
+
+        % Does the other player have anything? 
+        if sum(exchangeHand(:,1)) == 0; continue; end
         
-        hands{exchangePlayer}(neededCards,:) = nonNeededCard;
-        deckRemaining(nonNeededCards,:) = neededCard;
+        % Can we take any of their cards? 
+        canTakeInd = logical(exchangeHand(:,1));
+        if any(~ismember(exchangeHand(canTakeInd,2),restrictedSuit))
+            canTakeInd = canTakeInd & ~ismember(exchangeHand(:,2),restrictedSuit);
+            % In this case, yes. We can. We should be done after ths. 
+        end
+        % Else: no.
+        % No.
+        % Let's settle for swapping the card anyway. Then we'll
+        % hopefully find success on the next iteration.
+        
+
+        canTakeInd = find(canTakeInd);
+        canTakeInd = canTakeInd(randi([1 length(canTakeInd)]));
+        canTakeCard = exchangeHand(canTakeInd,:);
+        
+        
+        deckRemaining(unwantedCardInd,:) = canTakeCard;
+        exchangeHand(canTakeInd,:) = unwantedCard;
+        hands{exchangePlayer} = exchangeHand; 
+        
+        % And we should be done.
         
         availableCards = ~ismember(deckRemaining(:,2),restrictedSuit);
         availableCards = deckRemaining(availableCards,:);
-    end
         
+        % Interestingly, note that, only in a subset of these iterations of
+        % the while loop, will deckRemaining even change. 
+        % But this is a parsimonious, player-agnostic way of facilitating
+        % endless random shuffles. 
+        % We can call it a LAS VEGAS algorithm. 
+        
+    end
         
     availableCards = availableCards(1:cardCounts(ii),:);
     hand(1:cardCounts(ii),:) = availableCards;
@@ -64,6 +89,17 @@ for ii = find(1:4 ~= jj)
     
     deckRemaining = deckRemaining(~ismember(deckRemaining,availableCards,'rows'),:);
 end
+
+ccNew = cellfun(@(x) sum(logical(x(:,1))),hands);
+assert(isequal(cardCounts,ccNew));
+
+for ii = find(1:4 ~= jj)
+    restrictedSuit = find(playerRanOut(ii,:));
+    illegalCard = ismember(hands{ii}(:,2),restrictedSuit);
+    assert(sum(illegalCard) == 0); 
+end
+
+
 
 
 

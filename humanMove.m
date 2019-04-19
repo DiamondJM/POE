@@ -1,4 +1,4 @@
-function [currentMove, hands] = humanMove(hands,compPlayers,jj,playerNames)
+function [currentMove, hands] = humanMove(hands,compPlayers,jj)
 
 cardCounts = cellfun(@(x) sum(logical(x(:,1))),hands);
 

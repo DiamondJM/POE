@@ -59,4 +59,11 @@ suit = conversionSuit{strcmpi(conversionSuit(:,1),suit),2};
 cardVal(1) = cNumber;
 cardVal(2) = suit;
 
+if nargin; return; end
+
+checkVal = input(sprintf('You chose %s. Are you sure? Press 0 if unsure. Otherwise press any other key. \n',outputCard(cardVal)),'s');
+if isempty(checkVal); return; end
+checkVal = str2double(checkVal); 
+if ~checkVal; cardVal = inputCard; end
+
 end
