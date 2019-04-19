@@ -1,47 +1,33 @@
-function [currentMove, hands] = humanMove(hands,compPlayers,jj)
 
-cardCounts = cellfun(@(x) sum(logical(x(:,1))),hands);
+function [currentMove, deck] = humanMove(myStruct)
 
 
+deck = myStruct.deck; 
+
+[legalMoves, hand] = genLegalMoves(myStruct);
+hand = hand(logical(hand(:,1)),:);
+
+printHandVis(hand)
 
 %% Pull human move of available cards 
 
-hand = cat(1,hands{~compPlayers});
 
-currentMove = inputCard; 
+currentMove = input('Please provide card number. \n');
+currentMove = hand(currentMove,:); 
 
-while ~ismember(currentMove,hand,'rows')
-    fprintf('Incorrect input. \n'); 
-    
-    currentMove = inputCard; 
-    
+while ~ismember(currentMove,legalMoves,'rows')
+    fprintf('Illegal move provided. \n');
+    currentMove = input('Please provide card number. \n');
+    currentMove = hand(currentMove,:);
+
 end
+
+
+
 
 %% Fix hands
 
-deck = cat(1,hands{:});
 deck(ismember(deck,currentMove,'rows'),:) = zeros(1,2);
-hands = deckToHands(deck);
-
-% Let's ensure that this move was drawn from the appropriate hand. 
-
-ccNew = cellfun(@(x) sum(logical(x(:,1))),hands);
-
-
-drawnFrom = find(cardCounts ~= ccNew);
-
-if drawnFrom ~= jj 
-    % Must switch cards. 
-    inJJ = find(hands{jj}(:,1),1);
-    notInDrawnFrom = find(hands{drawnFrom}(:,1) == 0,1);
-    
-    hands{drawnFrom}(notInDrawnFrom,:) = hands{jj}(inJJ,:);
-    hands{jj}(inJJ,:) = zeros(1,2); 
-    
-end
-
-
-
 
 
 end

@@ -1,5 +1,5 @@
 % function legalMoves = genLegalMoves(myStruct)
-function legalMoves = genLegalMoves(myStruct)
+function [legalMoves, hand] = genLegalMoves(myStruct)
 
 
 % 
