@@ -1,3 +1,8 @@
+# PoeSP 
+PoeSP is a single-player cousin to Poe. It supports only a single human player, playing against three automated opponents, all with randomized hands. PoeSP features a visual interface, such that the human player may see real-time readouts of the hand and trick, and choose from the cards displayed on-screen.
+
+PoeSP is a branch of POE. 
+
 # POE
 A Whist engine in MATLAB
 
@@ -19,22 +24,3 @@ Importantly, the reshuffling procedure retains a "memory" of the hands previousl
 This allows the computers to simulate play, not only given knowledge of which cards have been played already, but which players have run out of which cards. 
 
 In each round of Monte Carlo simulation, the winning status of each legal move is assessed. After each round, I reward each winning move with one point. Further, the winning move which is also the lowest (accounting for trump status and game rules) is awarded a second point. Thus, we don't solely give priority to easy wins (like the ace of trumps). After all rounds of Monte Carlo simulation are complete, I choose the card which received the most points.
-
-INSTRUCTIONS
-
-Everything is automated, so just press play. 
-You'll be prompted to enter player names and computer status. 
-You will also be prompted to choose whether or not to randomize the hands. 
-Randomizing the hands is good for playing test matches, usually with four computer players. 
-
-If you're using a real deck, dealt to the players, do not randomize the hand. 
-If you are not randomizing the hand, recall that the player in order 4 must have 12 cards. That is, the card which is pulled is pulled from that player's hand. So, only 12 card will be accepted. 
-You'll also be prompted to provide the pulled card. 
-
-If prompted, provide all cards in the format 'n s', or number suit. 
-So, a 3 of spades is '3 s'. An ace of diamonds is 'a d'.
-
-# PoeSP 
-PoeSP is a single-player cousin to Poe. It supports only a single human player, playing against three automated opponents, all with randomized hands. PoeSP features a visual interface, such that the human player may see real-time readouts of the hand and trick, and choose from the cards displayed on-screen.
-
-PoeSP is available as a branch of POE. 
