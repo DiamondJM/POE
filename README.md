@@ -1,5 +1,5 @@
 # PoeSP 
-PoeSP is a single-player cousin to Poe. It supports only a single human player, playing against three automated opponents, all with randomized hands. PoeSP features a visual interface, such that the human player may see real-time readouts of the hand and trick, and choose from the cards displayed on-screen.
+PoeSP is a single-player cousin to POE. It supports only a single human player, playing against three automated opponents, all with randomized hands. PoeSP features a visual interface, such that the human player may see real-time readouts of the hand and trick, and choose from the cards displayed on-screen.
 
 PoeSP is a branch of POE. 
 
