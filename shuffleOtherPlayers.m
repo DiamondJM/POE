@@ -31,7 +31,8 @@ for ii = find(1:4 ~= jj)
         % sub-maximal cardinality matching on the bipartite
         % graph between people and cards. 
         
-        % What we can do is dump 
+        % What we can do is dump our bad card on someone else. 
+        % Keep trying until we can take a GOOD card from another player. 
         
         exchangePlayer = find((1:4 ~= jj)' & (1:4 < ii)');
         exchangePlayer = exchangePlayer(randi([1 length(exchangePlayer)])); 
@@ -89,18 +90,5 @@ for ii = find(1:4 ~= jj)
     
     deckRemaining = deckRemaining(~ismember(deckRemaining,availableCards,'rows'),:);
 end
-
-ccNew = cellfun(@(x) sum(logical(x(:,1))),hands);
-assert(isequal(cardCounts,ccNew));
-
-for ii = find(1:4 ~= jj)
-    restrictedSuit = find(playerRanOut(ii,:));
-    illegalCard = ismember(hands{ii}(:,2),restrictedSuit);
-    assert(sum(illegalCard) == 0); 
-end
-
-
-
-
 
 end
