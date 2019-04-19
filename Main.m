@@ -160,8 +160,8 @@ while sum(logical(deck(:,1))) >= 4
             resultsMTC = round(resultsMTC / sum(resultsMTC) * 100);
             
             [rVals,inds] = sort(resultsMTC,'descend'); 
-            % for ii = 1:min(5,length(inds))
-            for ii = 1:length(inds)
+            for ii = 1:min(5,length(inds))
+            % for ii = 1:length(inds)
                 fprintf('Choice %d: play %s with %d percent of results. \n',ii,outputCard(legalMoves(inds(ii),:)),rVals(ii));
             end
             
