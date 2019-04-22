@@ -3,7 +3,7 @@ A Whist engine in MATLAB
 
 This is a Whist engine which can support anywhere from 0 to 4 computer players. 
 
-## ALGORITHM
+#### ALGORITHM
 
 - I use a tree structure, in which the ambient extant deck and trick are passed to a recursive routine. 
 The routine is player- and depth-agnostic, such that it may choose optimal plays at any level of the trick, and regardless of whether or not it has a human teammate. 
@@ -12,7 +12,7 @@ The routine is player- and depth-agnostic, such that it may choose optimal plays
 - Importantly, the reshuffling procedure retains a "memory" of the hands previously played. If a different player, in an earlier trick, failed to match the lead suit, the routine then knows that that player has run out of that lead suit. This information is retained and provided to the reshuffling routine. This allows the computers to simulate play, not only given knowledge of which cards have been played already, but which players have which suits. 
 - In each round of Monte Carlo simulation, the winning status of each legal move is assessed. After each round, I reward each forced winning move with one point. Further, the winning move which is also the lowest (accounting for trump status and game rules) is awarded a second point. Thus, we don't solely give priority to easy wins (like the ace of trumps). After all rounds of simulation are complete, I choose the card which received the most points.
 
-## INSTRUCTIONS
+#### INSTRUCTIONS
 
 - Everything is automated, so just press play. You'll be prompted to enter player names and computer status. You will also be prompted to choose whether or not to randomize the hands.  Randomizing the hands is good for playing test matches, usually with four computer players. 
 - If you're using a real deck, dealt to the players, do not randomize the hand. If you are not randomizing the hand, recall that the player in order 4 must have 12 cards. That is, the card which is pulled is pulled from that player's hand. So, only 12 card will be accepted.  You'll also be prompted to provide the pulled card. 
